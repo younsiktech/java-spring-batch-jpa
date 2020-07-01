@@ -1,0 +1,97 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.4.RELEASE'
+    id 'java'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'war'
+
+}
+
+group 'com.younsiktech'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    // spring boot
+    implementation('org.springframework.boot:spring-boot-starter-batch')
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('org.springframework.boot:spring-boot-starter-jdbc')
+    implementation('org.springframework.data:spring-data-commons')
+
+    // mysql
+    runtime('mysql:mysql-connector-java')
+
+    // jpa
+    implementation('com.querydsl:querydsl-jpa')
+    implementation('com.querydsl:querydsl-apt')
+
+    // jodatime
+    implementation('joda-time:joda-time')
+
+    // lombok
+    annotationProcessor('org.projectlombok:lombok')
+    implementation('org.projectlombok:lombok')
+
+    // other
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9' // validate check
+    compile group: 'commons-io', name: 'commons-io', version: '2.6' // common IO
+    compile group: 'commons-validator', name: 'commons-validator', version: '1.6' // common IO
+
+    // actuator
+    implementation('org.springframework.boot:spring-boot-starter-actuator')
+
+    // test
+    testAnnotationProcessor('org.projectlombok:lombok')
+    testImplementation('org.projectlombok:lombok')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.springframework.batch:spring-batch-test')
+}
+
+test {
+    useJUnitPlatform()
+}
+
+configurations {
+
+//    querydsl.extendsFrom compileClasspath
+//
+//    developmentOnly
+//
+//    runtimeClasspath {
+//        extendsFrom developmentOnly
+//    }
+
+    compileOnly{
+        extendsFrom annotationProcessor
+    }
+}
+
+//def querydslDir = 'src/main/resources/static/querydsl'
+//
+//querydsl {
+//    library = "com.querydsl:querydsl-apt"
+//    jpa = true
+//    querydslSourcesDir = querydslDir
+//}
+//
+//sourceSets {
+//    main {
+//        java {
+//            srcDirs = ['src/main/java', querydslDir]
+//        }
+//    }
+//}
+//
+//compileQuerydsl {
+//    options.annotationProcessorPath = configurations.querydsl
+//}
+
+
+ext.profile = (!project.hasProperty('profile') || !profile) ? 'local' : profile

@@ -1,0 +1,33 @@
+.gradle
+/build/
+/gradle/wrapper/
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+/out/
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+### VS Code ###
+.vscode/
+# others
+logs/
+*.log
+# Package Files #
+*.jar
+*.war
+*.ear
+application-local.yml
